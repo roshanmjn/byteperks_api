@@ -1,0 +1,15 @@
+const { Router } = require("express");
+const router = Router();
+const controller = require("./trusted.controller.js");
+
+router.use("/", (req, res, next) => {
+    console.log("/trusted");
+    next();
+});
+
+router.get("/", controller.getAllTrustedSection);
+router.post("/create", controller.createTrustedSection);
+router.post("/update/:id?", controller.updateTrustedSection);
+router.post("/delete/:id?", controller.deleteTrustedSection);
+
+module.exports = router;
