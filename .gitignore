@@ -1,2 +1,4 @@
 node_modules
 .env
+byteperks.postman_collection.json
+byteperks.postman_environment.json
