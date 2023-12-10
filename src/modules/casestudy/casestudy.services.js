@@ -6,12 +6,31 @@ module.exports = {
     getAllCaseStudySection: async () => {
         try {
             const query = `SELECT 
-                           id,company,description,content,
+                           company,description,content,
                            featured,icon,image,
                            location,logo,status,
-                           title,website,technology
+                           title,website,technology,uniqid
                            FROM casestudy WHERE status='active'`;
             const [CaseStudyItem, fields] = await (await mysql).query(query);
+            return CaseStudyItem;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    },
+    // GET CaseStudy by id
+    getCaseStudyById: async (data) => {
+        const { uniqid } = data;
+        try {
+            const query = `SELECT 
+                           company,description,content,
+                           featured,icon,image, 
+                           location,logo,status,
+                           title,website,technology,uniqid
+                           FROM casestudy WHERE uniqid = ?`;
+            const [CaseStudyItem, fields] = await (
+                await mysql
+            ).query(query, uniqid);
+            console.log(CaseStudyItem);
             return CaseStudyItem;
         } catch (err) {
             throw new Error(err.message);

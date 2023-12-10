@@ -3,6 +3,7 @@ const router = Router();
 const controller = require("./features.controller.js");
 
 router.use("/", (req, res, next) => {
+    //#swagger.tags = ['Features']
     console.log("/features");
     next();
 });

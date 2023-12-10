@@ -10,6 +10,17 @@ const getAllCaseStudySection = async (req, res, next) => {
         next(err);
     }
 };
+// GET all CaseStudy sections
+const getCaseStudyById = async (req, res, next) => {
+    try {
+        const getCaseStudySection = await CaseStudyService.getCaseStudyById(
+            req.params
+        );
+        res.json(getCaseStudySection);
+    } catch (err) {
+        next(err);
+    }
+};
 
 // CREATE a new CaseStudy section
 const createCaseStudySection = async (req, res, next) => {
@@ -48,6 +59,7 @@ const deleteCaseStudySection = async (req, res, next) => {
 };
 module.exports = {
     getAllCaseStudySection,
+    getCaseStudyById,
     createCaseStudySection,
     updateCaseStudySection,
     deleteCaseStudySection,

@@ -5,9 +5,9 @@ module.exports = {
     // GET all social Section
     getAllSocialItems: async () => {
         try {
-            const query = `SELECT * FROM social`;
+            const query = `SELECT * FROM socialmedia`;
             const [socialItems, fields] = await (await mysql).query(query);
-            return socialItems[0];
+            return socialItems;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -18,7 +18,7 @@ module.exports = {
         const { icon, name, url } = data;
         try {
             const query = `
-            INSERT INTO social(icon,name,url) VALUES (?, ?, ?)
+            INSERT INTO socialmedia(icon,name,url) VALUES (?, ?, ?)
             `;
             const newSocialSection = await (
                 await mysql
@@ -36,7 +36,7 @@ module.exports = {
     updateSocialSection: async (id, data) => {
         const { icon, name, url, status } = data;
         try {
-            const query = `UPDATE social SET icon=?,name=?,url=?,status=? WHERE id = ?`;
+            const query = `UPDATE socialmedia SET icon=?,name=?,url=?,status=? WHERE id = ?`;
             const updatedSocialSection = await (
                 await mysql
             ).query(query, [icon, name, url, status, id]);
@@ -53,7 +53,7 @@ module.exports = {
     // DELETE a social Section item by ID
     deleteSocialSection: async (id) => {
         try {
-            const query = `DELETE FROM social WHERE id = ?`;
+            const query = `DELETE FROM socialmedia WHERE id = ?`;
             const deletedSocialSection = await (await mysql).query(query, id);
             if (deletedSocialSection[0].affectedRows === 0)
                 return new HttpException(500, "Social Section not found");

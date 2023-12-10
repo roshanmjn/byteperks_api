@@ -24,7 +24,7 @@ module.exports = {
                 allowNull: false,
             },
             content: {
-                type: Sequelize.DataTypes.STRING,
+                type: Sequelize.DataTypes.TEXT("long"),
                 allowNull: false,
             },
             image: {
@@ -43,6 +43,11 @@ module.exports = {
             category: {
                 type: Sequelize.DataTypes.STRING,
                 allowNull: false,
+            },
+            type: {
+                type: Sequelize.DataTypes.STRING,
+                allowNull: false,
+                defaultValue: "blog",
             },
             tags: {
                 type: Sequelize.DataTypes.STRING,

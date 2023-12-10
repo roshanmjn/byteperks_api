@@ -7,7 +7,7 @@ module.exports = {
         try {
             const query = `SELECT * FROM features`;
             const [featuresItem, fields] = await (await mysql).query(query);
-            return featuresItem[0];
+            return featuresItem;
         } catch (err) {
             throw new Error(err.message);
         }

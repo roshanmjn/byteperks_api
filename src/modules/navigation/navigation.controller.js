@@ -24,10 +24,14 @@ const getNavigationItemById = async (req, res, next) => {
 
 // CREATE a new navigation item
 const createNavigationItem = async (req, res, next) => {
+    const { name, link, submenu, parent } = req.body;
     try {
-        const newNavigationItem = await NavigationService.createNavigationItem(
-            req.body
-        );
+        const newNavigationItem = await NavigationService.createNavigationItem({
+            name,
+            link,
+            submenu,
+            parent,
+        });
         res.status(201).json(newNavigationItem);
     } catch (err) {
         next(err);

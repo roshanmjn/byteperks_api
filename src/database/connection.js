@@ -37,4 +37,20 @@ const mysql = mysql2
         throw err;
     });
 
+async function pingDB() {
+    try {
+        const [rows, fields] = await (
+            await mysql
+        ).query("SELECT 1 + 1 AS solution");
+    } catch (error) {
+        throw error;
+    }
+}
+
+pingDB();
+
+setTimeout(() => {
+    pingDB();
+}, 40000);
+
 module.exports = { mysql };

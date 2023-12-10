@@ -5,27 +5,30 @@ module.exports = {
     // GET all navigation items
     getAllNavigationItems: async () => {
         try {
-            const query = `SELECT
+            const query = `
+            SELECT
             t1.id,
             t1.name,
             t1.orders,
             t1.link,
             t1.status,
             CONCAT(
-                '[',
+                            '[',
                 COALESCE(
                     GROUP_CONCAT(
-                        JSON_OBJECT('id', t2.id, 'name', t2.submenu, 'link', t2.link, 'status', t2.status) SEPARATOR ', '
+                        JSON_OBJECT('id', t2.id, 'name', t2.title, 'link', t2.uniqid ,'description',t2.description,'icon',t2.icon) SEPARATOR ', '
                     ),
                     ''
                 ),
                 ']'
             ) AS submenu
             FROM nav t1
-            LEFT JOIN nav t2 ON t2.parent = t1.id AND t2.status = 'active'
-            WHERE t1.parent = 0 AND t1.status = 'active'
+            LEFT JOIN submenu t2 
+            on t1.id = t2.parent
+            WHERE t1.status='active'
             GROUP BY t1.id, t1.name, t1.orders, t1.link, t1.status
-            ORDER BY t1.orders ASC;`;
+            ORDER BY t1.orders asc;
+            `;
             const [navigationItems, fields] = await (await mysql).query(query);
 
             return navigationItems;
@@ -36,6 +39,7 @@ module.exports = {
 
     // CREATE a new navigation item
     createNavigationItem: async (data) => {
+        console.log(data);
         const { name, link, submenu, parent } = data;
         try {
             // QUERY TO GET THE TOTAL NUMBER OF UNIQUE ORDERS

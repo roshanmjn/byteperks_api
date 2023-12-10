@@ -3,6 +3,7 @@ const router = Router();
 const controller = require("./social.controller.js");
 
 router.use("/", (req, res, next) => {
+    //#swagger.tags = ['Social']
     console.log("/social");
     next();
 });
